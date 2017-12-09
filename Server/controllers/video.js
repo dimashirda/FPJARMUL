@@ -19,6 +19,7 @@ exports.createVideo = async function(req, res, next){
 
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, file){
+        console.log(fields.tags);
         var video = {
             title: fields.title,
             description: fields.description,
@@ -27,13 +28,13 @@ exports.createVideo = async function(req, res, next){
         };
         videoService.createVideo(video, file)
             .then((savedVideo) => {
+                console.log(savedVideo);
                 if(savedVideo){
-                    res.send(200).json({ status: 200, data: savedVideo, message: "Successfully Upload Video"});
+                    res.status(200).json({ status: 200, data: savedVideo, message: "Successfully Upload Video"});
                 }
-                res.send(400).json({ status: 400, message: err.message});       
-            }
-        );
-    })
+                res.status(400).json({ status: 400});
+            })
+    });
 }
 
 exports.getSingleVideo = async function(req, res, next){
