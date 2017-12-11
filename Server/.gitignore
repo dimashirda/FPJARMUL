@@ -57,4 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+#Data test
 /public/videos/.
+*.mp4
+*.MP4
+*.MKV
+*.mkv

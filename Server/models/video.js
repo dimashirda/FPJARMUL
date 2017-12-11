@@ -9,6 +9,7 @@ var VideoSchema = new mongoose.Schema({
     lowPath: String,
     highPath: String,
     idUser: Number,
+    category: String,
     tags: [String]
 });
 
