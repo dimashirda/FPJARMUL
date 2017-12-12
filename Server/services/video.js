@@ -26,20 +26,15 @@ exports.createVideo = async function (video, file){
 
     var oldPath = file.videoUpload.path;    
     var ext = file.videoUpload.name.split('.')[1];
-    console.log(video.user);
     var newName = video.title.split(' ').join('_') + "."+ext;
     var userPath = videoPath + video.user+'/';
     var newPath = userPath+'ori_'+newName;
-    console.log(newPath);
     try {
         fs.statSync(videoPath+video.user);
     } catch (error) {
         fs.mkdir(videoPath+video.user);
     }
-    console.log(video.tags);
     fs.rename(oldPath, newPath, async function(err) {
-        console.log("mashshs");
-        console.log(video.user);
         if(err)
             throw Error("Error while renaming"+err);
         try {
@@ -51,14 +46,14 @@ exports.createVideo = async function (video, file){
                 lowPath: videoPath+'low_'+newName,
                 highPath: videoPath+'high_'+newName,
                 idUser: video.user,
+                category: video.category,
                 tags: video.tags
             });
             console.log(newVideo);
             var savedVideo = newVideo.save();
             prepareVideo(newPath, userPath, newName)
                 .then(() => {
-                    console.log("masuk");
-                    console.log(savedVideo);
+                    console.log("Preparation Done");
                     return savedVideo;
                 });
         } catch (error) {
@@ -74,6 +69,41 @@ exports.getSingleVideo = async function(id){
         return video;
     } catch (error) {
         throw Error("Error finding video");
+    }
+}
+
+exports.getVideoByCategory = async function(category){
+    try {
+        var videos = await Video.find({ category: category});
+
+        return videos;
+    } catch (error) {
+        throw Error("Error while finding video by category " + error);
+    }
+}
+
+exports.getVideoSortByDate = async function(category, order){
+    try {
+        if(category == "")
+        {
+            if(order == "asc"){
+                var videos = await Video.find({}, null, {sort: 'date'});
+            }
+            else{
+                var videos = await Video.find({}, null, {sort: '-date'});
+            }
+        }
+        else{
+            if(order == "asc"){
+                var videos = await Video.find({ category : category}, null, {sort: 'date'});
+            }
+            else{
+                var videos = await Video.find({ category : category}, null, {sort: '-date'});
+            }
+        }        
+        return videos;
+    } catch (error) {
+        throw Error("Error while finding Video "+ error);
     }
 }
 
