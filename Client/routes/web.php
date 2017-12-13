@@ -11,11 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'VideoController@index') ;
 Route::get('/home', 'HomeController@index');
 
 Route::get('/user/upload', 'UserController@uploadForm');
 Route::get('/login','HomeController@login');
 Route::get('/register', 'HomeController@register');
+
+Route::get('/video/test', 'VideoController@single');
