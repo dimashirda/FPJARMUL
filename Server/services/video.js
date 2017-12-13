@@ -42,9 +42,9 @@ exports.createVideo = async function (video, file){
                 title: video.title,
                 description: video.description,
                 date: new Date(),
-                oriPath: videoPath+newName,
-                lowPath: videoPath+'low_'+newName,
-                highPath: videoPath+'high_'+newName,
+                oriPath: userPath+newName,
+                lowPath: userPath+'low_'+newName,
+                highPath: userPath+'high_'+newName,
                 idUser: video.user,
                 category: video.category,
                 tags: video.tags

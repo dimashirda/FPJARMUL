@@ -9,6 +9,6 @@ router.post('/sort', VideoController.getVideoSortByDate);
 router.get('/view/:category', VideoController.getVideosByCategory);
 
 router.post('/', VideoController.createVideo);
-
-router.get('/:quality/:id', VideoController.getSingleVideo);
+router.get('/:id', VideoController.getSingleVideo);
+router.get('/:quality/:id', VideoController.streamVideo);
 module.exports = router;

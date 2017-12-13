@@ -1,14 +1,19 @@
 var timer = require('timers');
 var formidable = require('formidable');
 var videoService = require('../services/video');
+var http = require('http'),
+    fs = require('fs'),
+    util = require('util');
 _this = this;
 
 exports.getVideos = async function(req, res, next) {
+    console.log("masuk");
     var page = req.query.page ? req.query.page : 1;
     var limit = req.query.limit ? req.query.limit : 10;
 
     try {
         var videos = await videoService.getVideos({}, page, limit);
+        console.log(videos);
         return res.status(200).json({status: 200, data: videos, message: "Successful get Videos"});
     } catch (error) {
         return res.status(400).json({status: 400, message: error.message});
@@ -62,33 +67,55 @@ exports.createVideo = async function(req, res, next){
 }
 
 exports.getSingleVideo = async function(req, res, next){
-    var range = req.headers.range;
-    var positions = range.replace(/bytes=/, "").split("-");
-    var start = parseInt(positions[0], 10);
-    var end = partialend ? parseInt(partialend, 10) : total - 1;
-    var chunksize = (end-start)+1;
     var id = req.params.id;
+    try {
+        var video = await videoService.getSingleVideo(id);
+        res.status(200).json({ status: 200, data: video, message: "Successfully get Video"});
+    } catch (error) {
+        res.status(400).json({ status: 400});
+    }
+}
+
+exports.streamVideo = async function(req, res, next){
+    var id = req.params.id;
+
     try {
         var video = await videoService.getSingleVideo(id);
     } catch (error) {
         res.status(400).json({ status: 400, message: "Cannot find video"});
     }
-    console.log(video);
-    // switch (req.params.quality) {
-    //     case 'low':
-    //         var movie_mp4 = video.lowPath;
-    //         break;
-    //     case 'high':
-    //         var movie_mp4 = video.highPath;
-    //         break;
-    //     default:
-    //         res.status(404).json({ status: 404, message: "Cannot find Quality"});
-    //         break;
-    // }
-    // var total = movie_mp4.length;
-    // res.writeHead(206, { "Content-Range": "bytes " + start + "-" + end + "/" + total, 
-    //                     "Accept-Ranges": "bytes",
-    //                     "Content-Length": chunksize,
-    //                     "Content-Type":"video/mp4"});
-    // res.end(movie_mp4.slice(start, end+1), "binary");
+     console.log(video);
+    console.log(req.params.quality);
+    switch (req.params.quality) {
+        case 'low':
+            var path = video.lowPath;
+            break;
+        case 'high':
+            var path = video.highPath;
+            break;
+        default:
+            res.status(404).json({ status: 404, message: "Cannot find Quality"});
+            break;
+    }
+    var stat = fs.statSync(path);
+    var total = stat.size;
+    if (req.headers['range']) {
+      var range = req.headers.range;
+      var parts = range.replace(/bytes=/, "").split("-");
+      var partialstart = parts[0];
+      var partialend = parts[1];
+  
+      var start = parseInt(partialstart, 10);
+      var end = partialend ? parseInt(partialend, 10) : total-1;
+      var chunksize = (end-start)+1;
+      console.log('RANGE: ' + start + ' - ' + end + ' = ' + chunksize);
+  
+      var file = fs.createReadStream(path, {start: start, end: end});
+      res.writeHead(206, { 'Content-Range': 'bytes ' + start + '-' + end + '/' + total, 'Accept-Ranges': 'bytes', 'Content-Length': chunksize, 'Content-Type': 'video/mp4' });
+      file.pipe(res);
+    } else {
+      console.log('ALL: ' + total);
+      res.writeHead(200, { 'Content-Length': total, 'Content-Type': 'video/mp4' });
+      fs.createReadStream(path).pipe(res);
+  }
 }
