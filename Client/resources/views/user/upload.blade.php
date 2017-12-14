@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-md-8" id="uploadForm">
 		
-	<form id="createForm" action="localhost:3000/video" method="POST" enctype="multipart/form-data">
+	<form id="createForm" action="http://10.151.34.157:3000/video" method="POST" enctype="multipart/form-data">
 		{{csrf_field()}}
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Video Title</label>
@@ -34,17 +34,23 @@
 	    <label for="exampleFormControlSelect1">Video Description</label>
 	  	<textarea type="text" name="description" class="form-control"></textarea>
   		</div>
-	  <div class="form-group">
-	    <label for="exampleInputPassword1">User</label>
-	    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Transaction Place" name="user">
-	  </div>
+			<div class="form-group">
+	    <label for="exampleFormControlSelect1">Video Description</label>
+	  	<select name="category" class="form-control">
+				<option value="music">Music</option>
+				<option value="sport">Sport</option>
+				<option value="games">Games</option>
+				<option value="education">Education</option>
+			</select>
+  		</div>
+<input type="hidden" name="user" value="{{session('id')}}">
 	<div class="form-group">
-    	<label>Foto Transaksi</label><br>
+    	<label>Video</label><br>
         <input type="file" id="inputImg" name="videoUpload" class="form-control" placeholder="Enter Expense Bill or note or etc...">
         <img id="preview"  class="img-responsive img-rounded" >
     </div>
   	<input type="hidden" name="item_num" value="1" id="itemNum">
-	  <button type="button" onclick="uploadVideo();" class="btn btn-primary">Submit</button>
+	  <button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 	</div>
 	</div>

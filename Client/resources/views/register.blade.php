@@ -80,6 +80,9 @@
 			<h2>Please Register <small>It's free and always will be.</small></h2>
 			<hr class="colorgraph">
 			<div class="form-group">
+				<input type="text" name="name" id="display_name" class="form-control input-lg" placeholder="Name" tabindex="3">
+			</div>
+            <div class="form-group">
 				<input type="text" name="username" id="display_name" class="form-control input-lg" placeholder="Username" tabindex="3">
 			</div>
 			<div class="form-group">
