@@ -23,9 +23,10 @@ Route::get('/logout','LoginController@logout');
 Route::get('/profile','ProfileController@index');
 Route::get('/user','ProfileController@user');
 Route::get('/editprofile','ProfileController@edit');
-
+Route::post('/search','HomeController@search');
 
 Route::get('/video/test', 'VideoController@single');
+Route::post('/video/comment', 'VideoController@comment');
 Route::get('/video', 'VideoController@watch');
 Route::get('/video/{id}/{quality}', 'VideoController@watch');
 
