@@ -54,7 +54,7 @@
                 <!-- <span class="caret"></span> --></a>
                 <ul class="dropdown-menu">
                   <a href="{{url('/user/upload')}}" class="dropdown-item">Upload</a>
-                  <a href="{{url('/profile')}}" class="dropdown-item">Profile</a>
+                  <a href="{{url('/user')}}" class="dropdown-item">Profile</a>
                   <a href="{{url('/logout')}}" class="dropdown-item">Logout</a>
                 </ul>
               </li>

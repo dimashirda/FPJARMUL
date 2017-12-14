@@ -22,35 +22,32 @@
 		       	{{ csrf_field() }}
 		          	<input type="hidden" value="iduser">
 		          	<div class="form-group">
-		            <label class="col-lg-3 control-label">First name:</label>
+		            <label class="col-lg-3 control-label">Name:</label>
 		            	<div class="col-lg-8">
-		              		<input class="form-control" type="text" placeholder="insert new name" name="first">
+		              		<input class="form-control" type="text" placeholder="insert new name" name="name"
+		              		value="{{session('name')}}">
 		            	</div>
 		         	 </div>
 		          <div class="form-group">
-		            <label class="col-lg-3 control-label">Last name:</label>
-		            <div class="col-lg-8">
-		              <input class="form-control" type="text" placeholder="insert new last name" name="last">
-		            </div>
-		          </div>
-		          <div class="form-group">
 		            <label class="col-lg-3 control-label">Email:</label>
 		            <div class="col-lg-8">
-		              <input class="form-control" type="text" placeholder="insert new email" name="mail">
+		              <input class="form-control" type="text" placeholder="insert new email" name="email"
+		              value="{{session('email')}}">
 		            </div>
 		          </div>
 		          <div class="form-group">
 		            <label class="col-md-3 control-label">Username:</label>
 		            <div class="col-md-8">
-		              <input class="form-control" type="text" placeholder="insert new username" name="username">
+		              <input class="form-control" type="text" placeholder="insert new username" name="username"
+		              value="{{session('username')}}">
 		            </div>
 		          </div>
-		          <div class="form-group">
+<!-- 		          <div class="form-group">
 		            <label class="col-md-3 control-label">Photo Profile:</label>
 		            <div class="col-md-8">
 		            	<input class="form-control" type="file" name="photo">
 		            </div>
-		          </div>
+		          </div> -->
 		          <div class="form-group">
 		            <label class="col-md-3 control-label">Old Password:</label>
 		            <div class="col-md-8">

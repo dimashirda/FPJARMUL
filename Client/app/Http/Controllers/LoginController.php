@@ -24,7 +24,8 @@ class LoginController extends Controller
         if (count($login)>0) 
         {
             //dd($login);
-            session(['id'=>$login[0]->id_user, 'username'=>$login[0]->username]);
+            session(['id'=>$login[0]->id_user, 'username'=>$login[0]->username, 'email'=>$login[0]->email, 
+                'name'=>$login[0]->name]);
             return redirect('/');
         }
         else
