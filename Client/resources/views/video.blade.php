@@ -66,7 +66,7 @@
         		@if($data->_id == $video->_id) <?php continue; ?> @endif
         		<div class="portfolio-item">
         			<a href="{{ url('/video/'.$data->_id).'/high' }}">
-        				<img class="img-thumbnail" src="http://placehold.it/750x450" alt="">
+        				<img class="img-thumbnail" src="{{asset($data->thumbnailPath)}}" alt="">
         			<div class="row">
         				<div class="col-md-8">
 			        			<h5>{{$data->title}}</h5>
