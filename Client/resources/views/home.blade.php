@@ -18,7 +18,7 @@
 						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
-					<a href="{{ url('/user'.$data->idUser) }}">
+					<a href="{{ url('/profile/'.$data->idUser) }}">
 						<h6>@foreach($user as $dota) @if($data->idUser == $dota->id_user) {{$dota->username}} @endif @endforeach</h6>
 					</a>
 					<p>
@@ -76,18 +76,18 @@
 				</div>
 			</div>
 			<div class="row">
-			<div class="col-lg-12">
-				<h1 class="page-header">
-					<img src="//i.ytimg.com/i/-9-kyTW8ZkZNDHQJ6FgpwQ/1.jpg" class="avatar-xs">
-					 Musique
-					<small>
-						<h5 class="pull-right">
-							Vous souhaitez avoir accès à toutes les mises à jour les plus récentes ? Abonnez-vous maintenant. 
-							<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-youtube-play" aria-hidden="true"></i> S'abonner</a>
-						</h5>
-					</small>
-				</h1>
-			</div>
+				<div class="col-lg-12">
+					<h1 class="page-header">
+						<img src="//i.ytimg.com/i/-9-kyTW8ZkZNDHQJ6FgpwQ/1.jpg" class="avatar-xs">
+						 Musique
+						<small>
+							<h5 class="pull-right">
+								Vous souhaitez avoir accès à toutes les mises à jour les plus récentes ? Abonnez-vous maintenant. 
+								<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-youtube-play" aria-hidden="true"></i> S'abonner</a>
+							</h5>
+						</small>
+					</h1>
+				</div>
 			</div>
 			<!-- Projects Row -->
 			<div class="row">
