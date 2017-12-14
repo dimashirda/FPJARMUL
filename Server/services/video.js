@@ -4,7 +4,7 @@ var fs = require('fs');
 const watermarkPath = '/home/lpersahabatan/Documents/FPJARMUL/Server/public/images/water.png'
 const videoPath = '/home/lpersahabatan/Documents/FPJARMUL/Server/public/videos/';
 var cmd = require('child_process');
-
+var videoTitle;
 _this = this;
 
 exports.getVideos = async function (query, page, limit){
@@ -18,7 +18,32 @@ exports.getVideos = async function (query, page, limit){
 
         return videos;
     } catch (error) {
-        throw Error('Error while paginating Videos!');
+        throw Error('Error while paginating Videos! '+error);
+    }
+}
+
+exports.getTrendingVideos = async function(query, page, limit){
+
+    var options = {
+        sort: { views: 1},
+        page,
+        limit
+    };
+    try {
+        var videos = await Video.paginate(query, options);
+        return videos;
+    } catch (error) {
+        throw Error("Error while finding trending videos! " + error);
+    }
+}
+
+exports.searchVideos = async function(keyword){
+    try {
+        var videos = await Video.find({ $text: { $search: keyword,
+                                                 $caseSensitive: false}}).sort({ views: 1});
+        return videos
+    } catch (error) {
+        throw Error("Error while Searching Videos "+ error);
     }
 }
 
@@ -26,6 +51,7 @@ exports.createVideo = async function (video, file){
 
     var oldPath = file.videoUpload.path;    
     var ext = file.videoUpload.name.split('.')[1];
+    videoTitle = video.title.split(' ').join('_');
     var newName = video.title.split(' ').join('_') + "."+ext;
     var userPath = videoPath + video.user+'/';
     var newPath = userPath+'ori_'+newName;
@@ -45,15 +71,14 @@ exports.createVideo = async function (video, file){
                 oriPath: userPath+newName,
                 lowPath: userPath+'low_'+newName,
                 highPath: userPath+'high_'+newName,
+                thumbnailPath: userPath+"thumbnail_"+videoTitle+".png",
                 idUser: video.user,
                 category: video.category,
                 tags: video.tags
             });
-            console.log(newVideo);
             var savedVideo = newVideo.save();
             prepareVideo(newPath, userPath, newName)
                 .then(() => {
-                    console.log("Preparation Done");
                     return savedVideo;
                 });
         } catch (error) {
@@ -63,18 +88,35 @@ exports.createVideo = async function (video, file){
 }
 
 exports.getSingleVideo = async function(id){
-    try {
+    // try {
+    //     Video.findOne({_id: id}, (err, video) => {
+    //         console.log(video);
+    //         if(err){
+    //             throw Error("Error while finding video " + err);
+    //         }
+    //         video.views = video.views + 1;
+    //         video.save();
+    //         return video;
+    //     });
+    // } catch (error) {
+    //     throw Error("Error finding video");
+    // }
         var video = await Video.findById(id);
-        
+        console.log(video);
+        video.views++;
+        var saving = await video.save()
         return video;
-    } catch (error) {
-        throw Error("Error finding video");
-    }
 }
 
-exports.getVideoByCategory = async function(category){
+exports.getVideoByCategory = async function(query, page, limit){
+    var options = {
+        sort: { views: 1},
+        page,
+        limit
+    };
+
     try {
-        var videos = await Video.find({ category: category});
+        var videos = await Video.paginate(query, options);
 
         return videos;
     } catch (error) {
@@ -110,34 +152,16 @@ exports.getVideoSortByDate = async function(category, order){
 async function prepareVideo(path, userPath, name){
     //Watermark the video
     try {
-        cmd.execSync(`ffmpeg -y -i ${path} -i ${watermarkPath} -filter_complex "[1]lut=a=val*0.3[a];[0][a]overlay=0:0" -c:v libx264 -an ${userPath +"water_"+ name}`);
-        return Promise.all([getHighVideo(userPath, name), getLowVideo(userPath, name)]);
+        cmd.execSync(`ffmpeg -y -i ${path} -i ${watermarkPath} -filter_complex "overlay=10:10" -strict -2 ${userPath +"water_"+ name}`);
+        return Promise.all([getHighVideo(userPath, name), getLowVideo(userPath, name), getThumbnailVideo(userPath, name, path)]);
     } catch (error) {
         throw Error("Error while Preparing Video "+error);
     }
-    // } , (err) =>{
-    //         if(err)
-    //             throw err;
-    //         console.log("manis dan selalu disiplin");                 
-    //         cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 45 -c:a copy ${userPath +"low_"+ name}`, (err) => {
-    //                 if(err)
-    //                     throw err;
-    //                 console.log("manis dan selalu disiplin");                                         
-    //                 cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 19 -c:a copy ${userPath +"high_"+ name}`, (err) => {
-    //                     if(err)
-    //                         throw err;
-    //                     console.log("manis dan selalu disiplin");
-    //                     console.log("Done converting");
-                                             
-    //                 });
-    //         });
-    // })
 }
 
 async function getHighVideo(userPath, name){
     try {
         return cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 19 -c:a copy ${userPath +"high_"+ name}`);
-        console.log("manis dan selalu disiplin");                
     } catch (error) {
         throw Error("Error while converting to high video "+error);
     }
@@ -148,5 +172,13 @@ async function getLowVideo(userPath, name){
         return cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 45 -c:a copy ${userPath +"low_"+ name}`);
     } catch (error) {
         throw Error("Error while converting to Low Video "+ error);
+    }
+}
+
+async function getThumbnailVideo(userPath, name, oriPath){
+    try {
+        return cmd.exec(`ffmpeg -i ${oriPath} -ss 00:00:5.435 -vframes 1 ${userPath +"thumbnail_"+ videoTitle+".png"}`);
+    } catch (error) {
+        throw Error("Error while getting thumbnail " + error);
     }
 }
