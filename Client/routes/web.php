@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', 'VideoController@index') ;
+Route::get('/', 'HomeController@index') ;
 Route::get('/home', 'HomeController@index');
 
 Route::get('/user/upload', 'UserController@uploadForm');
-Route::get('/login','HomeController@login');
-Route::get('/register', 'HomeController@register');
+Route::get('/login','LoginController@view');
+Route::post('/login','LoginController@loggedin');
+Route::get('/register', 'LoginController@register');
+Route::post('/register', 'LoginController@registered');
+Route::get('/logout','LoginController@logout');
 
 Route::get('/video/test', 'VideoController@single');
+Route::get('/video', 'VideoController@watch');

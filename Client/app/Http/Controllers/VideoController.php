@@ -21,13 +21,18 @@ class VideoController extends Controller
 
 	}
 
-    public function create()
-    {
-    	return view('video.create');
-    }
+	public function watch()
+	{
+		return view('video');
+	}
 
-    public function single()
-    {
-    	return view('video.single');
-    }
+  public function create()
+  {
+  	return view('video.create');
+  }
+
+  public function single()
+  {
+  	return view('video.single');
+  }
 }
