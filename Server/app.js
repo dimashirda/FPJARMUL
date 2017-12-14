@@ -34,7 +34,6 @@ var users = require('./routes/users');
 var video = require('./routes/video');
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/video', video);
 
 // catch 404 and forward to error handler
