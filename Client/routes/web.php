@@ -27,3 +27,5 @@ Route::get('/editprofile','ProfileController@edit');
 
 Route::get('/video/test', 'VideoController@single');
 Route::get('/video', 'VideoController@watch');
+Route::get('/video/{id}/{quality}', 'VideoController@watch');
+

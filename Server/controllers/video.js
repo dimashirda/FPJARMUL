@@ -7,13 +7,11 @@ var http = require('http'),
 _this = this;
 
 exports.getVideos = async function(req, res, next) {
-    console.log("masuk");
     var page = req.query.page ? req.query.page : 1;
     var limit = req.query.limit ? req.query.limit : 10;
 
     try {
         var videos = await videoService.getVideos({}, page, limit);
-        console.log(videos);
         return res.status(200).json({status: 200, data: videos, message: "Successful get Videos"});
     } catch (error) {
         return res.status(400).json({status: 400, message: error.message});
@@ -21,10 +19,11 @@ exports.getVideos = async function(req, res, next) {
 }
 
 exports.getVideosByCategory = async function(req, res, next){
+    var page = req.query.page ? req.query.page : 1;
+    var limit = req.query.limit ? req.query.limit : 10;
     var category = req.params.category.toLowerCase();
-    console.log(category);
     try {
-        var videos = await videoService.getVideoByCategory(category);
+        var videos = await videoService.getVideoByCategory({category: category}, page, limit);
         return res.status(200).json({status: 200, data: videos, message: "Successfully get Videos"});
     } catch (error) {
         return res.status(400).json({status: 400, message: error.message });
@@ -37,10 +36,20 @@ exports.getVideoSortByDate = async function(req, res, next){
 
     try {
         var videos = await videoService.getVideoSortByDate(category, order);
-        // console.log(videos)
         return res.status(200).json({status: 200, data: videos, message: "Successfully get Videos"});        
     } catch (error) {
         return res.status(400).json({status: 400, message: error.message });        
+    }
+}
+exports.getTrendingVideos = async function(req, res, next){
+    var page = req.query.page ? req.query.page : 1;
+    var limit = req.query.limit ? req.query.limit : 10;
+
+    try {
+        var videos = await videoService.getTrendingVideos({}, page, limit);
+        return res.status(200).json({ status: 200, data: videos, message: "Successfully Get Trending Videos"});
+    } catch (error) {
+        return res.status(200).json({ status: 400, message: "Error finding Videos "+ error});     
     }
 }
 
@@ -58,7 +67,6 @@ exports.createVideo = async function(req, res, next){
         videoService.createVideo(video, file)
             .then((savedVideo) => {
                     timer.setTimeout(() => {
-                        console.log("UDAH");
                         // res.redirect('http://10.151.34.170:8000');
                         res.status(200).json({ status: 200, data: savedVideo, message: "Successfully Upload Video"});
                     }, 5000);
@@ -68,12 +76,15 @@ exports.createVideo = async function(req, res, next){
 
 exports.getSingleVideo = async function(req, res, next){
     var id = req.params.id;
+    console.log("masuk");
     try {
         var video = await videoService.getSingleVideo(id);
-        res.status(200).json({ status: 200, data: video, message: "Successfully get Video"});
+        console.log(video);
+        return res.status(200).json({ status: 200, data: video, message: "Successfully get Video"});        
     } catch (error) {
-        res.status(400).json({ status: 400});
-    }
+        console.log(video);
+        return res.status(400).json({ status: 400, message: error});
+    }    
 }
 
 exports.streamVideo = async function(req, res, next){
@@ -84,8 +95,6 @@ exports.streamVideo = async function(req, res, next){
     } catch (error) {
         res.status(400).json({ status: 400, message: "Cannot find video"});
     }
-     console.log(video);
-    console.log(req.params.quality);
     switch (req.params.quality) {
         case 'low':
             var path = video.lowPath;

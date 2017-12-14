@@ -1,22 +1,37 @@
 @extends('master')
 
+@section('title')
+ MyTube - Video
+@endsection
+
 @section('content')
 
 	<div class="container" id="homecontent">
 		<div class="row">
 			<div class="col-md-8 video-container">
-				<iframe src="https://www.youtube.com/embed/9mD-ZmWuFTQ" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+				<video controls class="video-player">
+					<source src="http://10.151.34.157:3000/video/{{$quality}}/{{$video->_id}}" type="video/mp4">
+				</video>
+				<!-- <iframe src="http://10.151.34.157:3000/video/high/5a2ee7a01e3fd258dead8d1f" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
 				<div class="row">
-					<div class="col-md-3">
-						<h4>Hotto Doggu</h4>
+					<div class="col-md-6">
+						<h4>{{$video->title}}</h4>
+						<label>Description : </label> {{$video->description}}<br>
+						Posted By <a href="">
+						@foreach($user as $dota) 
+							@if($dota->id_user == $video->idUser) {{$dota->username}}
+							@endif
+						@endforeach </a> 
+						{{date('d F Y', strtotime($video->date))}}
 					</div>
-					<div class="col-md-3 col-md-offset-6">
+					<div class="col-md-3 col-md-offset-3">
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Unlike
+						<h4>{{$video->views}} Views</h4>
 					</div>
 				</div><hr>
 
-				<!-- Comment Section -->
+				<!-- Comment Section https://www.youtube.com/embed/9mD-ZmWuFTQ-->
 
 				<div class="container col-md-10 comment-container">
 					<h4>Comment Section</h4><hr class="colorgraph">
@@ -39,6 +54,23 @@
 			<div class="col-md-4">
         <h4>Suggested</h4>
         <div class="card-body">
+        	@foreach($suggest as $data)
+        		@if($data->_id == $video->_id) <?php break; ?> @endif
+        		<div class="portfolio-item">
+        			<a href="{{ url('/video/'.$data->_id).'/high' }}">
+        				<img class="img-thumbnail" src="http://placehold.it/750x450" alt="">
+        			<div class="row">
+        				<div class="col-md-8">
+			        			<h5>{{$data->title}}</h5>
+			        		</a>
+			      			<a href="{{ url('/user'.$data->idUser) }}">
+			      				@foreach($user as $dota) @if($data->idUser == $dota->id_user) {{$dota->username}} @endif @endforeach
+			      			</a> 
+		      			</div>
+		      			<div class="col-md-4"><br>{{$data->views}} Views</div>
+        			</div>
+        		</div><hr>
+        	@endforeach
           <a href="#">
             <img class="img-thumbnail" src="https://www.parthpatel.net/wp-content/uploads/2017/04/Laravel-Tutorial-1024x576.jpg">
           </a><hr>

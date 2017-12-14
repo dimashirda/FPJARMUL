@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception;
+use App\User;
 
 class VideoController extends Controller
 {
@@ -21,9 +22,27 @@ class VideoController extends Controller
 
 	}
 
-	public function watch()
+	public function watch($id, $quality)
 	{
-		return view('video');
+		$client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+		try {
+			$response = $client->get('http://10.151.34.157:3000/video/'.$id);	
+		} catch (Exception $e) {
+			throw new Exception("Error Processing Request ", $e);
+		}
+		$data['video'] = json_decode($response->getBody())->data;
+
+		$client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+		try {
+			$response = $client->get('http://10.151.34.157:3000/video/view/'.$data['video']->category);	
+		} catch (Exception $e) {
+			throw new Exception("Error Processing Request ", $e);
+		}
+		$data['suggest'] = json_decode($response->getBody())->data->docs;
+		$data['quality'] = $quality;
+		$data['user'] = User::get();
+		//dd($videos);
+		return view('video', $data);
 	}
 
   public function create()

@@ -12,7 +12,7 @@
             <form class="form-signin" method="POST" action="{{ url('/login') }}">
                 {{ csrf_field() }}
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" name="email" required autofocus>
+                <input type="text" class="form-control" placeholder="Username" name="username" required autofocus>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
             </form><!-- /form -->

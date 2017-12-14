@@ -63,7 +63,7 @@
               @endif
             </ul>
           </div>
-      <div id="wrapper">
+      <div id="wrapper" class="toggled">
         <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
             <li>
@@ -114,6 +114,22 @@
   </nav>
 
       @yield('content')
+
+      <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-confirmation">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              Pesan
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-simple" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
 </body>
 <!-- <body>
   <nav class="navbar navbar-default navbar-fixed-top">

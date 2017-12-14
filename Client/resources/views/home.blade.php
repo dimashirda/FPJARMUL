@@ -1,10 +1,37 @@
 @extends('master')
 
+@section('title')
+	MyTube - Home
+@endsection
 @section('content')
 
 <section id="home">
 
 	<div class="container" id="homecontent">
+			<?php $count = 0; ?>
+			@foreach($vid as $data)
+				@if($count % 4 == 0) 
+					<div class="row"> 
+				@endif
+				<div class="col-md-3 portfolio-item">
+					<a href="{{ url('/video/'.$data->_id.'/high') }}">
+						<img class="img-responsive" src="http://placehold.it/750x450" alt="">
+						<h4>{{$data->title}}</h4>
+					</a>
+					<a href="{{ url('/user'.$data->idUser) }}">
+						<h6>@foreach($user as $dota) @if($data->idUser == $dota->id_user) {{$dota->username}} @endif @endforeach</h6>
+					</a>
+					<p>
+						Total Views
+					</p>
+				</div>
+
+				<?php $count++; ?>
+				@if($count % 4 == 0) 
+					</div> 
+				@endif
+				
+			@endforeach
 			<!-- Projects Row -->
 			<div class="row">
 				<div class="col-md-3 portfolio-item">
