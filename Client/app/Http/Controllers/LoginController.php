@@ -39,7 +39,7 @@ class LoginController extends Controller
     }
 
     public function registered(Request $req)
-    {
+    {   
         $name = $req->input('name');
         $username = $req->input('username');
         $password = $req->input('password');

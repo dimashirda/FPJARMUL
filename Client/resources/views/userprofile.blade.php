@@ -13,8 +13,8 @@
               <h3 class="username">Lucky Sans</h3>
             </div>
             <div class="col-md-12 border-top border-bottom">
-              <button class="btn btn-primary followbtn">Upload Videos</button>
-              <button class="btn btn-primary followbtn">Edit Profile</button>
+              <a class="btn btn-primary followbtn" href="{{('/user/upload')}}">Upload Videos</a>
+              <a class="btn btn-primary followbtn" href="{{('/editprofile')}}">Edit Profile</a>
             </div>
             <div class="clearfix"></div>
           </div>
