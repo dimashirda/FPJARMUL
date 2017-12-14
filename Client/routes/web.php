@@ -20,6 +20,10 @@ Route::post('/login','LoginController@loggedin');
 Route::get('/register', 'LoginController@register');
 Route::post('/register', 'LoginController@registered');
 Route::get('/logout','LoginController@logout');
+Route::get('/profile','ProfileController@index');
+Route::get('/user','ProfileController@user');
+Route::get('/editprofile','ProfileController@edit');
+
 
 Route::get('/video/test', 'VideoController@single');
 Route::get('/video', 'VideoController@watch');
