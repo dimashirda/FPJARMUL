@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception;
 use App\User;
+use App\Comment;
 
 class VideoController extends Controller
 {
@@ -44,6 +45,17 @@ class VideoController extends Controller
 		//dd($videos);
 		return view('video', $data);
 	}
+
+	public function comment(Request $request)
+  {
+  	$comm = new comment;
+  	$comm->content = $request->input('comment');
+  	$comm->id_user = session('id');
+  	$comm->id_video = $request->input('id');
+  	$comm->save();
+
+  	return back();
+  }
 
   public function create()
   {

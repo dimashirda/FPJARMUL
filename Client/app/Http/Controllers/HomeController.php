@@ -23,6 +23,11 @@ class HomeController extends Controller
         //dd($data);
     	return view('home', $data);
     }
+    public function search(Request $request)
+    {
+        dd($request->input());
+        return view('login');
+    }
     public function login()
     {
     	return view('login');

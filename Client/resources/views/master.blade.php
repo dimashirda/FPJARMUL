@@ -44,7 +44,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-2 col-md-6" method="POST" action="{{ url('/search') }}">
               {{ csrf_field() }}
-              <input class="form-control mr-sm-5" type="search" placeholder="Search" aria-label="Search">
+              <input class="form-control mr-sm-5" type="text" name="keyword" placeholder="Search" aria-label="Search">
               <button class="btn btn-default" type="submit" id="searchhome"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>
             <ul class="nav navbar-nav navbar-right">
