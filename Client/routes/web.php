@@ -22,4 +22,4 @@ Route::post('/register', 'LoginController@registered');
 Route::get('/logout','LoginController@logout');
 
 Route::get('/video/test', 'VideoController@single');
-Route::get('/video/{id}', 'VideoController@watch');
+Route::get('/video/{id}/{quality}', 'VideoController@watch');
