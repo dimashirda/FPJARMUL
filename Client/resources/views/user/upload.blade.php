@@ -24,7 +24,7 @@
 		</div>
 		<div class="col-md-8" id="uploadForm">
 		
-	<form id="createForm" method="POST" enctype="multipart/form-data">
+	<form id="createForm" action="localhost:3000/video" method="POST" enctype="multipart/form-data">
 		{{csrf_field()}}
 	  <div class="form-group">
 	    <label for="exampleInputEmail1">Video Title</label>
@@ -49,19 +49,4 @@
 	</div>
 	</div>
 </body>
-<script type="text/javascript">
-    function uploadVideo(){
-    	$("#createForm")
-    		.ajaxForm({
-    			url : 'http://10.151.34.157:3000/video', // or whatever
-		        dataType : 'json',
-		        success : function (response) {
-		            alert("The server says: " + response);
-	        	},
-	        	error: function(error){
-	        		alert("Server said error "+ error);
-        		}
-    	});
-    }
-    </script>
 </html>
