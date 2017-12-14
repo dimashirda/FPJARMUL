@@ -63,11 +63,22 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 .btn {
     font-weight: 700;
-    height: 36px;
+    /*height: 36px;*/
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
     cursor: default;
+}
+
+/* Own Css */
+
+.video-container{
+    
+}
+
+.video-player{
+    width:100%; 
+    height:70vh;
 }
 
 /*
@@ -86,6 +97,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    margin-top: 125px;
 }
 
 .profile-img-card {
@@ -133,7 +145,10 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 #searchhome:hover{
 	/*background-color: white;*/
+}
 
+#searchhome{
+    padding: 0px;
 }
 
 .form-signin input[type=email],
@@ -218,18 +233,18 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 #wrapper.toggled
 {
-	padding-left: 250px;
+	padding-left: 200px;
 }
 
 #sidebar-wrapper
 {
 	z-index: 1000;
 	position: fixed;
-	left: 250px;
+	left: 200px;
 	margin-top: 32.5px;
 	width: 0;
 	height: 100%;
-	margin-left: -250px;
+	margin-left: -200px;
 	overflow-y: auto;
 	background: #96e8df;
 	-webkit-transition: all 0.5s ease;
@@ -240,7 +255,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 
 #wrapper.toggled #sidebar-wrapper
 {
-	width: 250px;
+	width: 200px;
 }
 
 #page-content-wrapper
@@ -260,7 +275,7 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
 {
 	position: absolute;
 	top: 0;
-	width: 250px;
+	width: 200px;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -322,7 +337,7 @@ li a.activer
 {
 	#wrapper
 	{
-		padding-left: 250px;
+		padding-left: 200px;
 	}
 
 	#wrapper.toggled
@@ -332,7 +347,7 @@ li a.activer
 
 	#sidebar-wrapper
 	{
-		width: 250px;
+		width: 200px;
 	}
 
 	#wrapper.toggled #sidebar-wrapper
