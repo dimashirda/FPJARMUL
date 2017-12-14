@@ -17,10 +17,12 @@ class HomeController extends Controller
         } catch (Exception $e) {
             throw new Exception("Error Processing Request ", $e);
         }
+        //dd($response);
         $data['vid'] = json_decode($response->getBody())->data->docs;
-
+        //dd($data['vid']);
+        //arsort($data['vid']);
+        //dd($data['vid']);
         $data['user'] = User::get();
-        //dd($data);
     	return view('home', $data);
     }
     public function search(Request $request)
