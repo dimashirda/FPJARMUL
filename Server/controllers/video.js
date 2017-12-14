@@ -67,8 +67,8 @@ exports.createVideo = async function(req, res, next){
         videoService.createVideo(video, file)
             .then((savedVideo) => {
                     timer.setTimeout(() => {
-                        // res.redirect('http://10.151.34.170:8000');
-                        res.status(200).json({ status: 200, data: savedVideo, message: "Successfully Upload Video"});
+                        res.redirect('http://10.151.34.157:8000');
+                        // res.status(200).json({ status: 200, data: savedVideo, message: "Successfully Upload Video"});
                     }, 5000);
             })
     });

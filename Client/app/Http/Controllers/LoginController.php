@@ -40,6 +40,7 @@ class LoginController extends Controller
 
     public function registered(Request $req)
     {
+        $name = $req->input('name');
         $username = $req->input('username');
         $password = $req->input('password');
         $email = $req->input('email');
@@ -57,6 +58,7 @@ class LoginController extends Controller
             // $iv = openssl_random_pseudo_bytes($iv_size, $strong);
 
             $user = new User;
+            $user->name = $name;
             $user->username = $username;
             $user->password = md5($password);
             $user->email = $email;

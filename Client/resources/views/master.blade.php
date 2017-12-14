@@ -15,7 +15,7 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
       <a class="navbar-brand point" id="menu-toggle"><i id="menu-toggle" class="fa fa-bars" aria-hidden="true"></i></a>
-      <a class="navbar-brand" href="{{url('/')}}">MyTube</a>
+      <a class="navbar-brand" href="{{url('/')}}">NjuuTube</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -53,6 +53,7 @@
                 <a class="dropdown-toggle nav-link" data-toggle="dropdown">Hi, {{session('username')}}
                 <!-- <span class="caret"></span> --></a>
                 <ul class="dropdown-menu">
+                  <a href="{{url('/user/upload')}}" class="dropdown-item">Upload</a>
                   <a href="{{url('/profile')}}" class="dropdown-item">Profile</a>
                   <a href="{{url('/logout')}}" class="dropdown-item">Logout</a>
                 </ul>

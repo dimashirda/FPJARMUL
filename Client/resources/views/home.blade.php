@@ -15,7 +15,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="http://placehold.it/750x450" alt="">
+						<img class="img-responsive" src="{{$data->thumbnailPath}}" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/user'.$data->idUser) }}">
