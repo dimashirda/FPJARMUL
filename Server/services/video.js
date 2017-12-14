@@ -26,13 +26,8 @@ exports.getVideos = async function (query, page, limit){
 
 exports.getTrendingVideos = async function(query, page, limit){
 
-    var options = {
-        sort: { views: 1},
-        page,
-        limit
-    };
     try {
-        var videos = await Video.paginate(query, options);
+        var videos = await Video.find({}).sort({'views': -1}).limit(10);
         return videos;
     } catch (error) {
         throw Error("Error while finding trending videos! " + error);
@@ -95,19 +90,6 @@ exports.createVideo = async function (video, file){
 }
 
 exports.getSingleVideo = async function(id){
-    // try {
-    //     Video.findOne({_id: id}, (err, video) => {
-    //         console.log(video);
-    //         if(err){
-    //             throw Error("Error while finding video " + err);
-    //         }
-    //         video.views = video.views + 1;
-    //         video.save();
-    //         return video;
-    //     });
-    // } catch (error) {
-    //     throw Error("Error finding video");
-    // }
         var video = await Video.findById(id);
         console.log(video);
         video.views++;
@@ -168,7 +150,7 @@ async function prepareVideo(path, userPath, name, user){
 
 async function getHighVideo(userPath, name){
     try {
-        return cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 19 -c:a copy ${userPath +"high_"+ name}`);
+        return cmd.exec(`ffmpeg -i ${userPath +"water_"+ name} -c:v libx264 -preset slow -crf 25 -c:a copy ${userPath +"high_"+ name}`);
     } catch (error) {
         throw Error("Error while converting to high video "+error);
     }

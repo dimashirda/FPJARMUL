@@ -24,9 +24,14 @@ Route::get('/profile/{idUser}','ProfileController@index');
 Route::get('/user','ProfileController@user');
 Route::get('/editprofile','ProfileController@edit');
 Route::get('/trending','VideoController@trending');
+Route::get('/sport','VideoController@sport');
+Route::get('/games','VideoController@games');
+Route::get('/education','VideoController@education');
+Route::get('/music','VideoController@music');
+Route::get('/entertainment','VideoController@entertainment');
 
 Route::post('/editprofile','ProfileController@edited');
-Route::post('/search','HomeController@search');
+Route::get('/search','HomeController@search');
 
 Route::get('/video/test', 'VideoController@single');
 Route::post('/video/comment', 'VideoController@comment');

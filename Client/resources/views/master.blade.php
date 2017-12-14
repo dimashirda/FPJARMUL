@@ -32,18 +32,16 @@
                   Category
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Entertainment</a>
-                  <a class="dropdown-item" href="#">Music</a>
-                  <a class="dropdown-item" href="#">Sport</a>
-                  <a class="dropdown-item" href="#">Games</a>
-                  <a class="dropdown-item" href="#">Education</a>
-                  <a class="dropdown-item" href="#">News</a>
-                  <a class="dropdown-item" href="#">Lifehack</a>
+                  <a class="dropdown-item" href="{{url('/entertainment')}}">Entertainment</a>
+                  <a class="dropdown-item" href="{{url('/music')}}">Music</a>
+                  <a class="dropdown-item" href="{{url('/sport')}}">Sport</a>
+                  <a class="dropdown-item" href="{{url('/games')}}">Games</a>
+                  <a class="dropdown-item" href="{{url('/education')}}">Education</a>
+                  <a class="dropdown-item" href="{{url('/trending')}}">Trending</a>
                 </div>
               </li>
             </ul>
-            <form class="form-inline my-2 my-lg-2 col-md-6" method="POST" action="{{ url('/search') }}">
-              {{ csrf_field() }}
+            <form class="form-inline my-2 my-lg-2 col-md-6" method="GET" action="{{ url('/search') }}">
               <input class="form-control mr-sm-5" type="text" name="keyword" placeholder="Search" aria-label="Search">
               <button class="btn btn-default" type="submit" id="searchhome"><i class="fa fa-search" aria-hidden="true"></i></button>
             </form>

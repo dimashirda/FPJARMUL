@@ -19,13 +19,12 @@
   		</div>
 			<div class="form-group">
 	    <label for="exampleFormControlSelect1">Category</label>
-	  	<select name="category" class="form-control">
-				<option value="music" selected>Music</option>
+	  	<select name="category">
+				<option value="music">Music</option>
 				<option value="sport">Sport</option>
 				<option value="games">Games</option>
 				<option value="education">Education</option>
 				<option value="entertainment">Entertainment</option>
-				<option value="news">News</option>
 			</select>
   		</div>
 <input type="hidden" name="user" value="{{session('id')}}">

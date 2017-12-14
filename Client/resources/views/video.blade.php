@@ -9,10 +9,10 @@
 	<div class="container" id="homecontent">
 		<div class="row">
 			<div class="col-md-8 video-container">
-				<video controls class="video-player">
+				<!-- <video controls class="video-player">
 					<source src="http://10.151.34.157:3000/video/{{$quality}}/{{$video->_id}}" type="video/mp4">
-				</video>
-				<!-- <iframe src="http://10.151.34.157:3000/video/high/5a2ee7a01e3fd258dead8d1f" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
+				</video> -->
+				<iframe src="http://10.151.34.157:3000/video/{{$quality}}/{{$video->_id}}" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 				<div class="row">
 					<div class="col-md-8">
 						<h4>{{$video->title}}</h4>
