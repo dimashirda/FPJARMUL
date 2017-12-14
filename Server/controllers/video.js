@@ -8,7 +8,7 @@ _this = this;
 
 exports.getVideos = async function(req, res, next) {
     var page = req.query.page ? req.query.page : 1;
-    var limit = req.query.limit ? req.query.limit : 10;
+    var limit = req.query.limit ? req.query.limit : 40;
 
     try {
         var videos = await videoService.getVideos({}, page, limit);
