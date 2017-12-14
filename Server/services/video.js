@@ -88,19 +88,24 @@ exports.createVideo = async function (video, file){
 }
 
 exports.getSingleVideo = async function(id){
-    try {
-        Video.findById(id, (err, video) => {
-            if(err){
-                throw Error("Error while finding video " + err);
-            }
-            video.views.$inc();
-            video.save();
-            return video;
-        });
+    // try {
+    //     Video.findOne({_id: id}, (err, video) => {
+    //         console.log(video);
+    //         if(err){
+    //             throw Error("Error while finding video " + err);
+    //         }
+    //         video.views = video.views + 1;
+    //         video.save();
+    //         return video;
+    //     });
+    // } catch (error) {
+    //     throw Error("Error finding video");
+    // }
+        var video = await Video.findById(id);
+        console.log(video);
+        video.views++;
+        var saving = await video.save()
         return video;
-    } catch (error) {
-        throw Error("Error finding video");
-    }
 }
 
 exports.getVideoByCategory = async function(query, page, limit){

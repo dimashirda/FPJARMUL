@@ -76,12 +76,15 @@ exports.createVideo = async function(req, res, next){
 
 exports.getSingleVideo = async function(req, res, next){
     var id = req.params.id;
+    console.log("masuk");
     try {
         var video = await videoService.getSingleVideo(id);
-        res.status(200).json({ status: 200, data: video, message: "Successfully get Video"});
+        console.log(video);
+        return res.status(200).json({ status: 200, data: video, message: "Successfully get Video"});        
     } catch (error) {
-        res.status(400).json({ status: 400});
-    }
+        console.log(video);
+        return res.status(400).json({ status: 400, message: error});
+    }    
 }
 
 exports.streamVideo = async function(req, res, next){
