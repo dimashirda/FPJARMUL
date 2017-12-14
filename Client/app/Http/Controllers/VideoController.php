@@ -21,9 +21,17 @@ class VideoController extends Controller
 
 	}
 
-	public function watch()
+	public function watch($id)
 	{
-		return view('video');
+		$client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+		try {
+			$response = $client->get('http://10.151.34.157:3000/video/'.$id);	
+		} catch (Exception $e) {
+			throw new Exception("Error Processing Request ", $e);
+		}
+		$data['video'] = json_decode($response->getBody())->data;
+		//dd($videos);
+		return view('video', $data);
 	}
 
   public function create()

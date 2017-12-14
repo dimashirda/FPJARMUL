@@ -1,22 +1,36 @@
 @extends('master')
 
+@section('title')
+ MyTube - Video
+@endsection
+
 @section('content')
 
 	<div class="container" id="homecontent">
 		<div class="row">
 			<div class="col-md-8 video-container">
-				<iframe src="https://www.youtube.com/embed/9mD-ZmWuFTQ" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+				<video controls class="video-player">
+					<source src="http://10.151.34.157:3000/video/high/{{$video->_id}}" type="video/mp4">
+				</video>
+				<!-- <iframe src="http://10.151.34.157:3000/video/high/5a2ee7a01e3fd258dead8d1f" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
 				<div class="row">
-					<div class="col-md-3">
-						<h4>Hotto Doggu</h4>
+					<div class="col-md-6">
+						<h4>{{$video->title}}</h4>
+						{{$video->description}}
+						Posted By <a href="">
+						@foreach($user as $dota) 
+							@if($dota->id_user == $video->idUser) {{$dota->username}}
+							@endif
+						@endforeach </a> {{date('d F Y', strtotime($video->created_at))}}
 					</div>
-					<div class="col-md-3 col-md-offset-6">
+					<div class="col-md-3 col-md-offset-3">
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Unlike
+						{{$video->views}} Views
 					</div>
 				</div><hr>
 
-				<!-- Comment Section -->
+				<!-- Comment Section https://www.youtube.com/embed/9mD-ZmWuFTQ-->
 
 				<div class="container col-md-10 comment-container">
 					<h4>Comment Section</h4><hr class="colorgraph">
