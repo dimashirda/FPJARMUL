@@ -13,16 +13,20 @@ class HomeController extends Controller
     {
         $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
         try {
-            $response = $client->get('http://10.151.34.157:3000/video');   
+            $response = $client->get('http://10.151.34.157:3000/video');
+            $trending = $client->get('http://10.151.34.157:3000/video/trending');
+            //$semoga = $client->get('http://10.151.34.157:3000/video/view:semoga');   
         } catch (Exception $e) {
             throw new Exception("Error Processing Request ", $e);
         }
+        //dd($trending);
         //dd($response);
         $data['vid'] = json_decode($response->getBody())->data->docs;
-        //dd($data['vid']);
-        //arsort($data['vid']);
-        //dd($data['vid']);
+        $data['trend'] = json_decode($trending->getBody())->data;
+        $data['semoga'] = json_decode($response->getBody())->data->docs;
         $data['user'] = User::get();
+        //dd($data['trend']);
+
     	return view('home', $data);
     }
     public function search(Request $request)

@@ -23,6 +23,7 @@ Route::get('/logout','LoginController@logout');
 Route::get('/profile/{idUser}','ProfileController@index');
 Route::get('/user','ProfileController@user');
 Route::get('/editprofile','ProfileController@edit');
+Route::get('/trending','VideoController@trending');
 
 Route::post('/editprofile','ProfileController@edited');
 Route::post('/search','HomeController@search');

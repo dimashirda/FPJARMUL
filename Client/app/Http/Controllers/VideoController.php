@@ -57,6 +57,22 @@ class VideoController extends Controller
   	return back();
   }
 
+  public function trending()
+  {
+  	  $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+        try {
+            $trending = $client->get('http://10.151.34.157:3000/video/trending');
+        } catch (Exception $e) {
+            throw new Exception("Error Processing Request ", $e);
+        }
+        //dd($response);
+        $data['trend'] = json_decode($trending->getBody())->data;
+        //$data['semoga'] = json_decode($response->getBody())->data->docs;
+        $data['user'] = User::get();
+
+        return view('trending', $data);
+  }
+
   public function create()
   {
   	return view('video.create');
