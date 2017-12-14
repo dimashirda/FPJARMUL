@@ -25,6 +25,13 @@
 						{{date('d F Y', strtotime($video->date))}}
 					</div>
 					<div class="col-md-3 col-md-offset-3">
+						<div class="form-group">
+						  <select class="form-control" id="selectQuality" onchange="location = this.value;">
+						  	<option value="" selected>Quality</option>
+						    <option value="high">High</option>
+						    <option value="low">Low</option>
+						  </select>
+						</div>
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
 						<a href="#"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Unlike
 						<h4>{{$video->views}} Views</h4>
@@ -55,7 +62,7 @@
         <h4>Suggested</h4>
         <div class="card-body">
         	@foreach($suggest as $data)
-        		@if($data->_id == $video->_id) <?php break; ?> @endif
+        		@if($data->_id == $video->_id) <?php continue; ?> @endif
         		<div class="portfolio-item">
         			<a href="{{ url('/video/'.$data->_id).'/high' }}">
         				<img class="img-thumbnail" src="http://placehold.it/750x450" alt="">
