@@ -14,20 +14,20 @@
 				</video>
 				<!-- <iframe src="http://10.151.34.157:3000/video/high/5a2ee7a01e3fd258dead8d1f" class="video-player" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe> -->
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-8">
 						<h4>{{$video->title}}</h4>
-						<label>Description : </label> {{$video->description}}<br>
-						Posted By <a href="">
+						<label>Description : </label> {{$video->description}}<br><br>
+						<strong>Posted By</strong> <a href="">
 						@foreach($user as $dota) 
 							@if($dota->id_user == $video->idUser) {{$dota->username}}
 							@endif
 						@endforeach </a> 
 						{{date('d F Y', strtotime($video->date))}}
 					</div>
-					<div class="col-md-3 col-md-offset-3">
+					<div class="col-md-3 col-md-offset-1">
 						<div class="form-group">
 						  <select class="form-control" id="selectQuality" onchange="location = this.value;">
-						  	<option value="" selected>Quality</option>
+						  	<option value="" hidden>Quality</option>
 						    <option value="high">High</option>
 						    <option value="low">Low</option>
 						  </select>
@@ -43,8 +43,9 @@
 				<div class="container col-md-10 comment-container">
 					<h4>Comment Section</h4><hr class="colorgraph">
 					
-					<form method="POST" action="{{ url('/video') }}">
+					<form method="POST" action="{{ url('/video/comment') }}">
 						{{ csrf_field() }}
+						<input type="hidden" name="id" value="{{$video->_id}}">
 						<div class="row">
 							<div class="form-group col-md-8">
 								<input class="form-control" type="textbox" name="comment" placeholder="Add a comment...">
@@ -65,7 +66,7 @@
         		@if($data->_id == $video->_id) <?php continue; ?> @endif
         		<div class="portfolio-item">
         			<a href="{{ url('/video/'.$data->_id).'/high' }}">
-        				<img class="img-thumbnail" src="http://placehold.it/750x450" alt="">
+        				<img class="img-thumbnail" src="{{asset($data->thumbnailPath)}}" alt="">
         			<div class="row">
         				<div class="col-md-8">
 			        			<h5>{{$data->title}}</h5>
@@ -78,27 +79,9 @@
         			</div>
         		</div><hr>
         	@endforeach
-          <a href="#">
-            <img class="img-thumbnail" src="https://www.parthpatel.net/wp-content/uploads/2017/04/Laravel-Tutorial-1024x576.jpg">
-          </a><hr>
-          <a href="#">
-            <img class="img-thumbnail" src="https://i.ytimg.com/vi/yLNLPECROMA/maxresdefault.jpg">
-          </a><hr>
-          <a href="#">
-            <img class="img-thumbnail" src="http://i.dailymail.co.uk/i/pix/2014/09/14/1410730427047_wps_10_epa04401083_Milan_s_Nigel.jpg">
-          </a><hr>
-          <a href="#">
-            <img class="img-thumbnail" src="https://i.ytimg.com/vi/3kaUvGSLMew/hqdefault.jpg">
-          </a><hr>
-          <a href="#">
-            <img class="img-thumbnail" src="https://i.ytimg.com/vi/GuWzvs8rtY0/maxresdefault.jpg">
-          </a><hr>
-          <a href="#">
-            <img class="img-thumbnail" src="https://i.ytimg.com/vi/9mD-ZmWuFTQ/maxresdefault.jpg">
-          </a><hr>
         </div>
       </div>
-		</div>
+    </div>
 	</div>
 	
 

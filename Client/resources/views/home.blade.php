@@ -15,14 +15,14 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{$data->thumbnailPath}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/user'.$data->idUser) }}">
 						<h6>@foreach($user as $dota) @if($data->idUser == $dota->id_user) {{$dota->username}} @endif @endforeach</h6>
 					</a>
 					<p>
-						Total Views
+						Total Views {{$data->views}}
 					</p>
 				</div>
 

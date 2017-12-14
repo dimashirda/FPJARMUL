@@ -76,6 +76,10 @@ html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:1
     
 }
 
+#selectQuality{
+    height: 45px;
+}
+
 .video-player{
     width:100%; 
     height:70vh;

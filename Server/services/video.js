@@ -3,6 +3,8 @@ var Video = require('../models/video');
 var fs = require('fs');
 const watermarkPath = '/home/lpersahabatan/Documents/FPJARMUL/Server/public/images/water.png'
 const videoPath = '/home/lpersahabatan/Documents/FPJARMUL/Server/public/videos/';
+const thumbnailPath = '/assets/app/';
+const clientPath = '/home/lpersahabatan/Documents/FPJARMUL/Client/public/assets/app/';
 var cmd = require('child_process');
 var videoTitle;
 _this = this;
@@ -60,6 +62,11 @@ exports.createVideo = async function (video, file){
     } catch (error) {
         fs.mkdir(videoPath+video.user);
     }
+    try {
+        fs.statSync('/home/lpersahabatan/Documents/FPJARMUL/Client/public'+thumbnailPath+video.user);
+    } catch (error) {
+        fs.mkdir('/home/lpersahabatan/Documents/FPJARMUL/Client/public'+thumbnailPath+video.user)
+    }
     fs.rename(oldPath, newPath, async function(err) {
         if(err)
             throw Error("Error while renaming"+err);
@@ -71,13 +78,13 @@ exports.createVideo = async function (video, file){
                 oriPath: userPath+newName,
                 lowPath: userPath+'low_'+newName,
                 highPath: userPath+'high_'+newName,
-                thumbnailPath: userPath+"thumbnail_"+videoTitle+".png",
+                thumbnailPath: thumbnailPath+video.user+"/thumbnail_"+videoTitle+".png",
                 idUser: video.user,
                 category: video.category,
                 tags: video.tags
             });
             var savedVideo = newVideo.save();
-            prepareVideo(newPath, userPath, newName)
+            prepareVideo(newPath, userPath, newName, video.user)
                 .then(() => {
                     return savedVideo;
                 });
@@ -149,11 +156,11 @@ exports.getVideoSortByDate = async function(category, order){
     }
 }
 
-async function prepareVideo(path, userPath, name){
+async function prepareVideo(path, userPath, name, user){
     //Watermark the video
     try {
         cmd.execSync(`ffmpeg -y -i ${path} -i ${watermarkPath} -filter_complex "overlay=10:10" -strict -2 ${userPath +"water_"+ name}`);
-        return Promise.all([getHighVideo(userPath, name), getLowVideo(userPath, name), getThumbnailVideo(userPath, name, path)]);
+        return Promise.all([getHighVideo(userPath, name), getLowVideo(userPath, name), getThumbnailVideo(userPath, name, path, user)]);
     } catch (error) {
         throw Error("Error while Preparing Video "+error);
     }
@@ -175,9 +182,9 @@ async function getLowVideo(userPath, name){
     }
 }
 
-async function getThumbnailVideo(userPath, name, oriPath){
+async function getThumbnailVideo(userPath, name, oriPath, user){
     try {
-        return cmd.exec(`ffmpeg -i ${oriPath} -ss 00:00:5.435 -vframes 1 ${userPath +"thumbnail_"+ videoTitle+".png"}`);
+        return cmd.exec(`ffmpeg -i ${oriPath} -ss 00:00:10.435 -vframes 1 ${clientPath +user+"/thumbnail_"+ videoTitle+".png"}`);
     } catch (error) {
         throw Error("Error while getting thumbnail " + error);
     }
