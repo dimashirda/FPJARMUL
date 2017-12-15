@@ -91,7 +91,7 @@
         	<?php $count = 0; ?>
         	@foreach($suggest as $data)
         		@if($count == 6) <?php break; ?>
-        		@else <?php count++; ?>
+        		@else <?php $count++; ?>
         		@endif
         		@if($data->_id == $video->_id) <?php continue; ?> @endif
         		<div class="portfolio-item">
