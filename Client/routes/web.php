@@ -37,4 +37,6 @@ Route::get('/video/test', 'VideoController@single');
 Route::post('/video/comment', 'VideoController@comment');
 Route::get('/video', 'VideoController@watch');
 Route::get('/video/{id}/{quality}', 'VideoController@watch');
+Route::get('/like/{id}', 'VideoController@like');
+Route::get('/dislike/{id}', 'VideoController@dislike');
 

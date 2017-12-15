@@ -7,6 +7,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception;
 use App\User;
 use App\Comment;
+use App\Like;
 
 class VideoController extends Controller
 {
@@ -43,6 +44,7 @@ class VideoController extends Controller
 		$data['quality'] = $quality;
 		$data['user'] = User::get();
 		$data['comment'] = Comment::where('id_video', $id)->get();
+		$data['like'] = Like::where('id_video', $id)->where('id_user', session('id'))->get();
 		//dd($data);
 		return view('video', $data);
 	}
@@ -57,6 +59,52 @@ class VideoController extends Controller
   		$comm->id_user = session('id');
   		$comm->id_video = $request->input('id');
   		$comm->save();	
+  	}
+
+  	return back();
+  }
+
+  public function like($id)
+  {
+
+  	if(!is_null(session('id')))
+  	{
+  		$stat = Like::where('id_video', $id)->where('id_user', session('id'))->first();
+  		//dd($stat);
+  		if(!is_null($stat)){
+  			$stat->status = 1;
+  			$stat->save();
+  		}
+  		else{
+	  		$like = new like;
+	  		$like->status = 1;
+	  		$like->id_user = session('id');
+	  		$like->id_video = $id;
+	  		$like->save();	
+	  	}
+  	}
+
+  	return back();
+  }
+
+  public function dislike($id)
+  {
+
+  	if(!is_null(session('id')))
+  	{
+  		$stat = Like::where('id_video', $id)->where('id_user', session('id'))->first();
+  		//dd($stat);
+  		if(!is_null($stat)){
+  			$stat->status = 0;
+  			$stat->save();
+  		}
+  		else{
+	  		$like = new like;
+	  		$like->status = 0;
+	  		$like->id_user = session('id');
+	  		$like->id_video = $id;
+	  		$like->save();	
+	  	}
   	}
 
   	return back();

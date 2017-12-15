@@ -32,8 +32,16 @@
 						    <option value="low">Low</option>
 						  </select>
 						</div>
-						<a href="{{url('/like'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
-						<a href="{{url('/dislike'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+						@if($like[0]->status == 0)
+							<a href="{{url('/like/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
+							<i class="fa fa-2x fa-thumbs-down" aria-hidden="true"></i> Dislike
+						@elseif($like[0]->status == 1)
+							<i class="fa fa-2x fa-thumbs-up disabled" aria-hidden="true"></i> Like &nbsp; &nbsp; &nbsp; 
+							<a href="{{url('/dislike/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+						@else
+							<a href="{{url('/like/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
+							<a href="{{url('/dislike/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+						@endif
 						<h4>{{$video->views}} Views</h4>
 					</div>
 				</div><hr>
