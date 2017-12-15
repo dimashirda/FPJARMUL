@@ -17,7 +17,7 @@
 					<div class="col-md-8">
 						<h4>{{$video->title}}</h4>
 						<label>Description : </label> {{$video->description}}<br><br>
-						<strong>Posted By</strong> <a href="">
+						<strong>Posted By</strong> <a href="{{ url('/profile/'.$video->idUser) }}">
 						@foreach($user as $dota) 
 							@if($dota->id_user == $video->idUser) {{$dota->username}}
 							@endif
