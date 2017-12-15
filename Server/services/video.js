@@ -35,10 +35,14 @@ exports.getTrendingVideos = async function(query, page, limit){
 }
 
 exports.searchVideos = async function(keyword){
+    console.log(keyword);
     try {
-        var videos = await Video.find({ $text: { $search: keyword,
-                                                 $caseSensitive: false}}).sort({ views: 1});
-        return videos
+        Video.find({ $text: {$search: keyword}}).exec((err, videos) => {
+            if(err){
+                throw Error("Error while searching "+err);
+            }
+            return videos;
+        });
     } catch (error) {
         throw Error("Error while Searching Videos "+ error);
     }

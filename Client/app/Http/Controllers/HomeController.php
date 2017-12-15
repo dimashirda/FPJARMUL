@@ -45,14 +45,13 @@ class HomeController extends Controller
         $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
         try {
             $response = $client->get('http://10.151.34.157:3000/video/search?keyword='.$key);
-            
         } catch (Exception $e) {
             throw new Exception("Error Processing Request ", $e);
         }
-        $data['result'] = json_decode($response->getBody());
-        //dd($data);
 
-        return view('home', $data);
+        $data['user'] = User::get();
+        $data['result'] = json_decode($response->getBody())->data;
+        return view('search', $data);
     }
     public function login()
     {
