@@ -21,6 +21,8 @@ class ProfileController extends Controller
     public function user()
     {
         $id = session('id');
+        $user = DB::table('users')->where('id_user', $id)->first();
+        $data['user'] = $user;
         $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
         $video = $client->get('http://10.151.34.157:3000/video/user/'.$id);
         $data['result'] = json_decode($video->getBody())->data;

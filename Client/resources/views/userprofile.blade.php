@@ -10,7 +10,7 @@
           <div class="panel panel-default" id="panel">
             <div class="userprofile social ">
               <div class="userpic"> <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="userpicimg"> </div>
-              <h3 class="username">Lucky Sans</h3>
+              <h3 class="username">{{$user->username}}</h3>
             </div>
             <div class="col-md-12 border-top border-bottom">
               <a class="btn btn-primary followbtn" href="{{('/user/upload')}}">Upload Videos</a>
@@ -40,7 +40,7 @@
                     <h4>{{$data->title}}</h4>
                   </a>
                   <p>
-                    Total Views {{$data->views}}
+                    Total Views {{$data->views}} <a href="{{ url('/delete/'.$data->_id) }}"><button class="btn-sm btn-warning"> Delete Video </button></a>
                   </p>
                 </div>
 

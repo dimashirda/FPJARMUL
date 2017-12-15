@@ -25,9 +25,7 @@
 			<?php $count = 0; ?>
 			@foreach($trend as $data)
 				@if($count >= 4)
-				{
 					@php break; @endphp
-				}
 				@endif
 				@if($count % 4 == 0) 
 					<div class="row"> 

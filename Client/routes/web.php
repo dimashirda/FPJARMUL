@@ -22,6 +22,7 @@ Route::post('/register', 'LoginController@registered');
 Route::get('/logout','LoginController@logout');
 Route::get('/profile/{idUser}','ProfileController@index');
 Route::get('/user','ProfileController@user');
+Route::get('/delete/{id}','VideoController@delete');
 Route::get('/editprofile','ProfileController@edit');
 Route::get('/trending','VideoController@trending');
 Route::get('/sport','VideoController@sport');
