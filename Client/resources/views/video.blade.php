@@ -6,6 +6,7 @@
 
 @section('content')
 
+
 	<div class="container" id="homecontent">
 		<div class="row">
 			<div class="col-md-8 video-container">
@@ -32,20 +33,21 @@
 						    <option value="low">Low</option>
 						  </select>
 						</div>
+						<input type="hidden" name="like_check" value="@if(isset($like[0])) ? $like[0]->status : null @endif" >
 						@if(isset($like[0]))
 							@if($like[0]->status == 0)
-								<a href="{{url('/like/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
-								<i class="fa fa-2x fa-thumbs-down" aria-hidden="true"></i> Dislike
+								<i onclick="sendLike(1);" class="fa fa-2x fa-thumbs-o-up" aria-hidden="true" id="tombollike"></i> Like &nbsp; &nbsp; &nbsp; 
+								<i onclick="sendLike(-1);" class="fa fa-2x fa-thumbs-down disabled" aria-hidden="true" id="dislike"></i> Dislike
 							@elseif($like[0]->status == 1)
-								<i class="fa fa-2x fa-thumbs-up disabled" aria-hidden="true"></i> Like &nbsp; &nbsp; &nbsp; 
-								<a href="{{url('/dislike/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+								<i onclick="sendLike(1);"class="fa fa-2x fa-thumbs-up disabled" aria-hidden="true" id="tombollike"></i> Like &nbsp; &nbsp; &nbsp; 
+								<i onclick="sendLike(-1);" class="fa fa-2x fa-thumbs-o-down" aria-hidden="true" id="dislike"></i></a> Dislike
 							@else
-								<a href="{{url('/like/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
-								<a href="{{url('/dislike/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+								<i onclick="sendLike(1);" class="fa fa-2x fa-thumbs-o-up" aria-hidden="true" id="tombollike"></i></a> Like &nbsp; &nbsp; &nbsp; 
+								<i onclick="sendLike(-1);" class="fa fa-2x fa-thumbs-o-down" aria-hidden="true" id="dislike"></i></a> Dislike
 							@endif
 						@else
-							<a href="{{url('/like/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
-							<a href="{{url('/dislike/'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
+							<i onclick="sendLike(1);" class="fa fa-2x fa-thumbs-o-up" aria-hidden="true" id="tombollike"></i></a> Like &nbsp; &nbsp; &nbsp; 
+							<i onclick="sendLike(-1);" class="fa fa-2x fa-thumbs-o-down" aria-hidden="true" id="dislike"></i></a> Dislike
 						@endif
 						<h4>{{$video->views}} Views</h4>
 					</div>
@@ -95,7 +97,8 @@
         <div class="card-body">
         	<?php $count = 0; ?>
         	@foreach($suggest as $data)
-        		@if($count == 6) <?php break; ?>
+				@if($count == 6) 
+					<?php break; ?>
         		@else <?php $count++; ?>
         		@endif
         		@if($data->_id == $video->_id) <?php continue; ?> @endif
@@ -118,6 +121,39 @@
       </div>
     </div>
 	</div>
-	
-
+	<script type="text/javascript">
+		function sendLike(type){
+			var targetUrl;
+			if(type == -1)
+				targetUrl = '{{url('/dislike/'.$video->_id.'?user='.session('id'))}}';	
+			else
+				targetUrl = '{{url('/like/'.$video->_id.'?user='.session('id'))}}';
+			$.ajax({
+				url: targetUrl,
+				dataType: 'json',
+				type: 'GET',
+				success: function(res){
+					console.log("Masuk!");
+					// var message = json_decode(res);
+					console.log(res);
+					if(type == -1)
+						{
+							$('#tombollike').removeClass('fa-thumbs-up disabled').addClass('fa-thumbs-o-up');
+							$('#dislike').removeClass('fa-thumbs-o-down').addClass('fa-thumbs-down disabled');
+							
+						}
+					else
+					{
+						$('#dislike').removeClass('fa-thumbs-down disabled').addClass('fa-thumbs-o-down');
+						$('#tombollike').removeClass('fa-thumbs-o-up').addClass('fa-thumbs-up disabled');
+					}
+						
+				},
+				error: function(err){
+					console.log("error njing");
+					console.log(err.message);
+				}
+			});
+		}
+	</script>
 @endsection

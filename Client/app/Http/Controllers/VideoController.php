@@ -76,50 +76,49 @@ class VideoController extends Controller
   	return back();
   }
 
-  public function like($id)
+  public function like(Request $request, $id)
   {
-
-  	if(!is_null(session('id')))
-  	{
-  		$stat = Like::where('id_video', $id)->where('id_user', session('id'))->first();
+    $userId = $request->user;
+  		$stat = Like::where('id_video', $id)->where('id_user', $userId)->first();
   		//dd($stat);
   		if(!is_null($stat)){
   			$stat->status = 1;
-  			$stat->save();
+  			$saving = $stat->save();
   		}
   		else{
 	  		$like = new like;
 	  		$like->status = 1;
-	  		$like->id_user = session('id');
+	  		$like->id_user = $userId;
 	  		$like->id_video = $id;
-	  		$like->save();	
-	  	}
-  	}
-
-  	return back();
+            $saving = $like->save();
+          }
+          if($saving)
+            return json_encode(['message' => 'Success']);
+  	// return back();
   }
 
-  public function dislike($id)
+  public function dislike(Request $request, $id)
   {
 
-  	if(!is_null(session('id')))
-  	{
-  		$stat = Like::where('id_video', $id)->where('id_user', session('id'))->first();
-  		//dd($stat);
-  		if(!is_null($stat)){
-  			$stat->status = 0;
-  			$stat->save();
-  		}
-  		else{
-	  		$like = new like;
-	  		$like->status = 0;
-	  		$like->id_user = session('id');
-	  		$like->id_video = $id;
-	  		$like->save();	
-	  	}
-  	}
-
-  	return back();
+        $userId = $request->user;
+        $stat = Like::where('id_video', $id)->where('id_user', $userId)->first();
+        //dd($stat);
+        if(!is_null($stat)){
+            $stat->status = 0;
+            $saving = $stat->save();
+        }
+        else{
+            $like = new like;
+            $like->status = 0;
+            $like->id_user = $userId;
+            $like->id_video = $id;
+          $saving = $like->save();
+        }
+       // dd($saving);
+        if($saving)
+          return json_encode(['message' => 'Success']);
+        return json_encode(['message'=> $stat]);
+  //	return back();
   }
 
   public function trending()
