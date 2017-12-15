@@ -50,9 +50,9 @@ class HomeController extends Controller
             throw new Exception("Error Processing Request ", $e);
         }
         $data['result'] = json_decode($response->getBody());
-        dd($data);
+        //dd($data);
 
-        return view('login');
+        return view('home', $data);
     }
     public function login()
     {

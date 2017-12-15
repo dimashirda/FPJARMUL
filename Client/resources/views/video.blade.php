@@ -32,8 +32,8 @@
 						    <option value="low">Low</option>
 						  </select>
 						</div>
-						<a href="#"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
-						<a href="#"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Unlike
+						<a href="{{url('/like'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-up" aria-hidden="true"></i></a> Like &nbsp; &nbsp; &nbsp; 
+						<a href="{{url('/dislike'.$video->_id)}}"><i class="fa fa-2x fa-thumbs-o-down" aria-hidden="true"></i></a> Dislike
 						<h4>{{$video->views}} Views</h4>
 					</div>
 				</div><hr>
@@ -53,6 +53,24 @@
 
 							<button class="btn btn-lg btn-primary col-md-4" type="submit">Post</button>
 						</div>
+						@foreach($comment as $comm)
+						<div class="container">
+							<div class="row">
+								<div class="col-md-1" style="text-align: center;">
+									<img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png" class="img-icon">
+								</div>
+							
+								<div class="col-md-8">
+									<a href="">@foreach($user as $dota) 
+										@if($dota->id_user == $comm->id_user) {{$dota->username}}
+										@endif
+									@endforeach </a><br>
+									{{$comm->content}}
+									<h6>On {{date('d F Y', strtotime($comm->created_at))}}</h6>
+								</div>
+							</div>
+						</div><hr>
+						@endforeach
 					</form>
 
 				</div>

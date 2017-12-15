@@ -42,17 +42,22 @@ class VideoController extends Controller
 		$data['suggest'] = json_decode($response->getBody())->data->docs;
 		$data['quality'] = $quality;
 		$data['user'] = User::get();
-		//dd($videos);
+		$data['comment'] = Comment::where('id_video', $id)->get();
+		//dd($data);
 		return view('video', $data);
 	}
 
 	public function comment(Request $request)
   {
-  	$comm = new comment;
-  	$comm->content = $request->input('comment');
-  	$comm->id_user = session('id');
-  	$comm->id_video = $request->input('id');
-  	$comm->save();
+
+  	if(!is_null(session('id')))
+  	{
+  		$comm = new comment;
+  		$comm->content = $request->input('comment');
+  		$comm->id_user = session('id');
+  		$comm->id_video = $request->input('id');
+  		$comm->save();	
+  	}
 
   	return back();
   }
