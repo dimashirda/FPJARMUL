@@ -8,6 +8,7 @@ router.get('/', VideoController.getVideos);
 router.get('/trending', VideoController.getTrendingVideos);
 router.get('/view/:category', VideoController.getVideosByCategory);
 router.get('/search',VideoController.searchVideo);
+router.get('/delete', VideoController.deleteVideo);
 router.get('/user/:id', VideoController.getVideoByUser);
 router.get('/:id', VideoController.getSingleVideo);
 router.get('/:quality/:id', VideoController.streamVideo);

@@ -50,7 +50,7 @@ class HomeController extends Controller
         }
 
         $data['user'] = User::get();
-        $data['result'] = json_decode($response->getBody())->data;
+        $data['result'] = json_decode($response->getBody());
         dd($data['result']);
 
         return view('search', $data);

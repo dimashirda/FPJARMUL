@@ -102,15 +102,23 @@ exports.searchVideo = async function (req, res, next) {
     var keyword = req.query.keyword;
     try {
         var video = await videoService.searchVideos(keyword);
-        console.log(video);
-        return res.status(200).json({status: 200, data:video, message: "succes search"});
-        
+        return res.status(200).json({status: 200, data: video, message: "succes search"});
     } catch (error) {
         return res.status(400).json({ status: 400, message: error});      
     }
     
 }
 
+exports.deleteVideo = async function(req, res, next){
+    var id = req.query.id;
+    try {
+        var deleteQuery = await videoService.deleteVideo(id);
+        console.log(deleteQuery);
+        return res.status(200).json({status: 200, message: "Success"});
+    } catch (error) {
+        return res.status(400).json({status: 400, message: error});
+    }
+}
 exports.streamVideo = async function(req, res, next){
     var id = req.params.id;
 

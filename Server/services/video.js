@@ -46,16 +46,15 @@ exports.getTrendingVideos = async function(query, page, limit){
 
 exports.searchVideos = async function(keyword){
     console.log(keyword);
-    try {
-        Video.find({ $text: {$search: keyword}}).exec((err, videos) => {
-            if(err){
-                throw Error("Error while searching "+err);
-            }
-            return videos;
-        });
-    } catch (error) {
-        throw Error("Error while Searching Videos "+ error);
-    }
+    Video.find({ $text: {$search: keyword}}).exec((err, videos) => {
+        console.log("masuk");
+        console.log(videos);
+        console.log(err);
+        if(err){
+            throw Error("Error while searching "+err);
+        }
+        return videos;
+    });
 }
 
 exports.createVideo = async function (video, file){
@@ -103,6 +102,17 @@ exports.createVideo = async function (video, file){
     });
 }
 
+exports.deleteVideo = async function(id){
+    var video = await Video.findById(id);
+    video.remove((err) => {
+        return true;
+    });
+    console.log(video);
+    // Video.findByIdAndRemove(id, (err, video) => {
+    //     console.log(video);
+    //     return true;
+    // });
+}
 exports.getSingleVideo = async function(id){
         var video = await Video.findById(id);
         console.log(video);

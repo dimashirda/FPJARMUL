@@ -32,7 +32,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="" style="width:250px; height:170px;">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/profile/'.$data->idUser) }}">
@@ -53,7 +53,7 @@
 				<div class="col-lg-12">
 					<h1 class="page-header">
 						<img src="//i.ytimg.com/i/-9-kyTW8ZkZNDHQJ6FgpwQ/1.jpg" class="avatar-xs">
-						 Musik
+						 Music
 						<small>
 							<h5 class="pull-right" id="h5">
 								List of newest cool music video nowdays, follow the trend so you wont get left!!! Dont Forget to LIKE!!
@@ -77,7 +77,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" style="width:250px; height:170px;" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/profile/'.$data->idUser) }}">
@@ -168,7 +168,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" style="width:250px; height:170px;" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/profile/'.$data->idUser) }}">
@@ -214,7 +214,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" style="width:250px; height:170px;" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/profile/'.$data->idUser) }}">
@@ -260,7 +260,7 @@
 				@endif
 				<div class="col-md-3 portfolio-item">
 					<a href="{{ url('/video/'.$data->_id.'/high') }}">
-						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+						<img class="img-responsive" src="{{asset($data->thumbnailPath)}}" style="width:250px; height:170px;" alt="">
 						<h4>{{$data->title}}</h4>
 					</a>
 					<a href="{{ url('/profile/'.$data->idUser) }}">
