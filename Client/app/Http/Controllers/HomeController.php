@@ -50,9 +50,9 @@ class HomeController extends Controller
         }
 
         $data['user'] = User::get();
-        
-        $data['result'] = json_decode($response->getBody());
-        dd($data);
+        $data['result'] = json_decode($response->getBody())->data;
+        dd($data['result']);
+
         return view('search', $data);
     }
     public function login()
