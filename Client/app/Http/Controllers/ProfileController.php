@@ -4,19 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception;
 
 class ProfileController extends Controller
 {
-    public function index()
+    public function index($id)
     {   
-    	return view('profile');
+        $user = DB::table('users')->where('id_user', $id)->first();
+        $data['user'] = $user;
+        $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+        $video = $client->get('http://10.151.34.157:3000/video/user/'.$id);
+        $data['result'] = json_decode($video->getBody())->data;
+    	return view('profile', $data);
     }
     public function user()
     {
-    	return view('userprofile');
+        $id = session('id');
+        $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+        $video = $client->get('http://10.151.34.157:3000/video/user/'.$id);
+        $data['result'] = json_decode($video->getBody())->data;
+    	return view('userprofile', $data);
     }
     public function edit()
     {
+        
     	return view('editprofile');
     }
     public function edited(Request $req)

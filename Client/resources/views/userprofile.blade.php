@@ -21,104 +21,36 @@
         </div>
         <div class="container" >
           <!-- Projects Row -->
-          <div class="row">
-            <div class="col-lg-12">
-              <h1 class="page-header">
-                <img src="//i.ytimg.com/i/-9-kyTW8ZkZNDHQJ6FgpwQ/1.jpg" class="avatar-xs">
-                 Popular Uploads
-              </h1>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <h1 class="page-header">
-                <img src="//i.ytimg.com/i/-9-kyTW8ZkZNDHQJ6FgpwQ/1.jpg" class="avatar-xs">
-                 All Videos
-                </small>
-              </h1>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-            <div class="col-md-3 portfolio-item">
-              <a href="#">
-                <img class="img-responsive" src="http://placehold.it/750x450" alt="">
-                <h4>Vidéo de musique</h4>
-              </a>
-              <a href="#"><h6>Par musique de ouf</h6></a>
-              <p>
-                61 286 vues il y a 1 heure
-              </p>
-            </div>
-          </div>
-          </div>
+          <div class="container" id="hometrend">
+              <?php $count = 0; ?>
+              @foreach($result as $data)
+                @if($count % 4 == 0) 
+                  <div class="row"> 
+                @endif
+                @if($count == 0)
+                  <div class="col-lg-12">
+                    <h1 class="page-header">
+                      My Videos
+                    </h1>
+                  </div>
+                @endif
+                <div class="col-md-3 portfolio-item">
+                  <a href="{{ url('/video/'.$data->_id.'/high') }}">
+                    <img class="img-responsive" src="{{asset($data->thumbnailPath)}}" alt="">
+                    <h4>{{$data->title}}</h4>
+                  </a>
+                  <p>
+                    Total Views {{$data->views}}
+                  </p>
+                </div>
+
+                <?php $count++; ?>
+                @if($count % 4 == 0) 
+                  </div> 
+                @endif
+                
+              @endforeach
+          </div>          
         </div>
   </div>
   </div>

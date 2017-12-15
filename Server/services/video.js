@@ -24,6 +24,16 @@ exports.getVideos = async function (query, page, limit){
     }
 }
 
+exports.getVideoByUser = async function(id){
+
+    try {
+        var videos = await Video.find({idUser: id});
+        return videos;
+    } catch (error) {
+        throw Error("Error while finding video by user "+error);
+    }
+}
+
 exports.getTrendingVideos = async function(query, page, limit){
 
     try {
