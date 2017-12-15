@@ -49,6 +49,18 @@ class VideoController extends Controller
 		return view('video', $data);
 	}
 
+  public function delete($id)
+  {
+    $client = new Client(['base_uri' => 'http://10.151.34.157:3000/video']);
+    try {
+      $response = $client->get('http://10.151.34.157:3000/video/delete?id='.$id); 
+    } catch (Exception $e) {
+      throw new Exception("Error Processing Request ", $e);
+    }
+    //dd($response);
+    return back();
+  }
+
 	public function comment(Request $request)
   {
 
