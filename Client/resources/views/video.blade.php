@@ -88,7 +88,11 @@
 			<div class="col-md-4">
         <h4>Suggested</h4>
         <div class="card-body">
+        	<?php $count = 0; ?>
         	@foreach($suggest as $data)
+        		@if($count == 6) <?php break; ?>
+        		@else <?php count++; ?>
+        		@endif
         		@if($data->_id == $video->_id) <?php continue; ?> @endif
         		<div class="portfolio-item">
         			<a href="{{ url('/video/'.$data->_id).'/high' }}">
